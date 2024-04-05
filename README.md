@@ -1,6 +1,8 @@
 # VirtualPaint-CV
 Create virtual painting based on motions captured by the webcam
 
+![Virtual Painter GIF](./thumbnails/paint.gif)
+
 **How to use:** 
 1. Clone the repository
 2. Install the requirement packages from requirements.txt
