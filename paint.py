@@ -11,19 +11,24 @@ cap.set(3, FRAME_WIDTH)
 cap.set(4, FRAME_HEIGHT)
 cap.set(10, 150)
 
+# DEFINE THE CODEC AND CREATE VIDEOWRITER OBJECT
+out = cv.VideoWriter('paint2.avi',
+                     cv.VideoWriter_fourcc(*'XVID'), 
+                     20.0, 
+                     (FRAME_WIDTH, FRAME_HEIGHT)) # final image size
+
+
 # DEFINE COLOR MIN AND MAX FOR HUE ND SATURATION (values found using the color_picker.py)
 # [h_min, s_min, v_min, h_max, s_max, v_max]
-myColors = [[5, 107, 0, 19, 255, 255], # FOR ORANGE
-            [157, 76, 128, 179, 255, 255],  # FOR PINK
-            [90, 48, 0, 118, 255, 255],  # FOR BLUE
-            [27, 0, 0, 177, 255, 184]]  # FOR BLACK
+myColors = [[157, 76, 128, 179, 255, 255]]  # FOR PINK
+            #[90, 48, 0, 118, 255, 255]]  # FOR BLUE
+            #[27, 0, 0, 177, 255, 184]]  # FOR BLACK
 
 # CORRESPONDING RGB COLOR CODES FOR THE ABOVE PARAMETERS
 # NOTE: YOU HAVE TO WRITE IT IN THE FORMAT OF BGR
-myColorValues = [[51, 153, 255],
-                 [153, 51, 255],
-                 [255, 0, 0],
-                 [0, 0, 0]]
+myColorValues = [[153, 51, 255]]
+                 #[255, 0, 0]]
+                 #[0, 0, 0]]
 
 myPoints = []   # [x, y, colorIndex (aka count)]
 
@@ -87,7 +92,12 @@ while True:
     if len(myPoints) != 0:
         drawOnCanvas(myPoints, myColorValues)
 
+    out.write(result)
     cv.imshow('Result', result)
+    print(result.shape)
     if cv.waitKey(1) & 0xFF==ord('q'):
         break
 
+cap.release()
+out.release()
+cv.destroyAllWindows()
